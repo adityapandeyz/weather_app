@@ -2,7 +2,6 @@
 
 Got it. Here is the complete `README.md` with accurate details:
 
-```markdown
 # Weather App
 
 A Flutter weather application that fetches weather data from the OpenWeather API using Dio.
@@ -78,7 +77,7 @@ lib/
 │   └── details_screen.dart
 └── services/
     └── city_service.dart
-```
+
 
 ## Usage
 
