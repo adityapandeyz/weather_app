@@ -56,24 +56,6 @@ A Flutter weather application that fetches weather data from the OpenWeather API
     flutter run
     ```
 
-## Project Structure
-
-lib/
-├── main.dart
-├── model/
-│   ├── city.dart
-│   └── weather.dart
-├── providers/
-│   ├── city_provider.dart
-│   └── weather_provider.dart
-├── screens/
-│   ├── home_screen.dart
-│   ├── search_screen.dart
-│   └── details_screen.dart
-└── services/
-    └── city_service.dart
-
-
 ## Usage
 
 1. On the `HomeScreen`, you can view the current weather and a list of previously searched cities.
