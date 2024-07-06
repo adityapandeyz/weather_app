@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app_go_india_stocks/provider/weather_provider.dart';
-import 'package:weather_app_go_india_stocks/widgets/footer_widget.dart';
-import 'package:weather_app_go_india_stocks/widgets/search_bar.dart';
-import 'package:weather_app_go_india_stocks/widgets/weather_card.dart';
 
 import '../model/city.dart';
 import '../model/weather.dart';
 import '../provider/city_provider.dart';
+import '../provider/weather_provider.dart';
+import '../widgets/footer_widget.dart';
+import '../widgets/search_bar.dart';
+import '../widgets/weather_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

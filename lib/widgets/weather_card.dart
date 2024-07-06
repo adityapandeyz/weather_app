@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_app_go_india_stocks/model/weather.dart';
-import 'package:weather_app_go_india_stocks/provider/city_provider.dart';
-import 'package:weather_app_go_india_stocks/provider/weather_provider.dart';
+
+import '../model/weather.dart';
+import '../provider/weather_provider.dart';
 
 class WeatherCard extends StatelessWidget {
   final String cityName;

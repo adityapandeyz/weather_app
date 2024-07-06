@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:weather_app_go_india_stocks/model/city.dart';
-
+import '../model/city.dart';
 import '../services/city_service.dart';
 
 class CityProvider with ChangeNotifier {

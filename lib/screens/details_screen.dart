@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app_go_india_stocks/provider/weather_provider.dart';
-import 'package:weather_app_go_india_stocks/widgets/weather_card.dart';
 
 import '../model/weather.dart';
+import '../provider/weather_provider.dart';
 import '../widgets/footer_widget.dart';
+import '../widgets/weather_card.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String cityName;

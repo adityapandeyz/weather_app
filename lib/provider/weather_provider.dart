@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app_go_india_stocks/services/weather_service.dart';
 
 import '../model/weather.dart';
+import '../services/weather_service.dart';
 
 class WeatherProvider with ChangeNotifier {
   final WeatherService _weatherService = WeatherService();
