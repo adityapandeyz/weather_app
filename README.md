@@ -1,7 +1,3 @@
-# weather_app
-
-Got it. Here is the complete `README.md` with accurate details:
-
 # Weather App
 
 A Flutter weather application that fetches weather data from the OpenWeather API using Dio.
