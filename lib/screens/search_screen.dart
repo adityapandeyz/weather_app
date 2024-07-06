@@ -83,88 +83,122 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 60,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Card(
-                elevation: 12,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: const Icon(Icons.arrow_back),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: TextField(
-                          autofocus: true,
-                          controller: _searchController,
-                          onSubmitted: (value) {
-                            _searchCities(value);
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 60,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Card(
+                  elevation: 12,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
                           },
-                          decoration: InputDecoration(
-                            hintText: 'Search Your City',
-                            border: InputBorder.none,
-                            hintStyle: GoogleFonts.lato(
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: TextField(
+                            autofocus: true,
+                            controller: _searchController,
+                            onSubmitted: (value) {
+                              _searchCities(value);
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Search Your City',
+                              border: InputBorder.none,
+                              hintStyle: GoogleFonts.lato(
+                                fontSize: 20,
+                                fontStyle: FontStyle.normal,
+                              ),
+                            ),
+                            style: GoogleFonts.lato(
                               fontSize: 20,
                               fontStyle: FontStyle.normal,
                             ),
                           ),
-                          style: GoogleFonts.lato(
-                            fontSize: 20,
-                            fontStyle: FontStyle.normal,
-                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {
-                          _searchCities(_searchController.text);
-                        },
-                      ),
-                    ],
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            _searchCities(_searchController.text);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            InkWell(
-              onTap: () {
-                _searchCities(_searchController.text);
-              },
-              child: const Icon(
-                Icons.search,
-                size: 120,
-                color: Color.fromARGB(71, 255, 255, 255),
-              ),
-            ),
-            _isLoading
-                ? const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(),
+              _searchResults.isEmpty
+                  ? InkWell(
+                      onTap: () {
+                        _searchCities(_searchController.text);
+                      },
+                      child: const Icon(
+                        Icons.search,
+                        size: 120,
+                        color: Color.fromARGB(71, 255, 255, 255),
+                      ),
+                    )
+                  : const SizedBox(),
+              _isLoading
+                  ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _searchResults.length,
+                      itemBuilder: (context, index) {
+                        City city = _searchResults[index];
+                        return ListTile(
+                          title: Text(city.name),
+                          subtitle: Text("${city.lat}, ${city.lon}"),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetailsScreen(
+                                  cityName: city.name,
+                                  lat: city.lat,
+                                  lon: city.lon,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                  )
-                : ListView.builder(
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Previous Searches"),
+              ),
+              Consumer<CityProvider>(
+                builder: (context, provider, child) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: _searchResults.length,
+                    itemCount: provider.previousCities.length,
                     itemBuilder: (context, index) {
-                      City city = _searchResults[index];
+                      City city = provider.previousCities[index];
                       return ListTile(
                         title: Text(city.name),
                         subtitle: Text("${city.lat}, ${city.lon}"),
@@ -182,39 +216,11 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
                         },
                       );
                     },
-                  ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("Previous Searches"),
-            ),
-            Consumer<CityProvider>(
-              builder: (context, provider, child) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: provider.previousCities.length,
-                  itemBuilder: (context, index) {
-                    City city = provider.previousCities[index];
-                    return ListTile(
-                      title: Text(city.name),
-                      subtitle: Text("${city.lat}, ${city.lon}"),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => DetailsScreen(
-                              cityName: city.name,
-                              lat: city.lat,
-                              lon: city.lon,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

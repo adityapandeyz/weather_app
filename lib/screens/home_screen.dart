@@ -79,14 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Consumer<WeatherProvider>(
                     builder: (context, weahterProvider, child) {
                       if (weahterProvider.isLoading) {
-                        return const CircularProgressIndicator();
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       } else if (weahterProvider.weather == null) {
-                        return ElevatedButton(
-                          onPressed: () => weahterProvider.fetchWeather(
-                            cityProvider.previousCities.first.lat,
-                            cityProvider.previousCities.first.lon,
-                          ),
-                          child: const Text("Fetch Weather"),
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
                       }
                       CurrentWeather currentWeather =
@@ -101,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 10,
                           ),
                           WeatherCard(
-                            cityName: cityProvider.previousCities.first.name,
+                            cityName: cityProvider.previousCities.last.name,
                             currentWeather: currentWeather,
                             conditions: conditions,
                             weahterProvider: weahterProvider,
