@@ -58,7 +58,6 @@ A Flutter weather application that fetches weather data from the OpenWeather API
 
 ## Project Structure
 
-```plaintext
 lib/
 ├── main.dart
 ├── model/
@@ -99,7 +98,7 @@ final String _apiKey = "YOUR_API_KEY";
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+
 
 Make sure to replace `YOUR_API_KEY` with your actual OpenWeather API key and the GitHub repository URL with the actual URL of your repository.
 
