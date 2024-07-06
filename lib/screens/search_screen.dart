@@ -57,9 +57,7 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
     } catch (e) {
       setState(() {
         _isLoading = false;
-        // Handle error
-        print("Error searching cities: $e");
-        // Show error message to user
+
         showDialog(
           context: context,
           builder: (BuildContext context) {
